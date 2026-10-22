@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
+import {
+  ClerkProvider,
+  Show,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
-
-import './globals.css';
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -14,7 +23,7 @@ const inter = Inter({
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"]
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -28,19 +37,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${plexMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        theme: dark,
+      }}
+    >
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.variable} ${plexMono.variable} antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header>
+              <SignedOut>
+                <SignInButton />
+                <SignUpButton>
+                  <button className="bg-rose-500 text-white p-2 rounded">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </header>
+
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
