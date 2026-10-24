@@ -9,12 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.1",
+    "@ai-sdk/groq": "^4.0.70",
     "@clerk/nextjs": "^6.36.5",
     "@clerk/themes": "^2.4.46",
+    "ai": "^7.0.153",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.5.0",
     "convex": "^1.31.2",
+    "inngest": "^3.48.1",
     "input-otp": "^1.5.0",
     "lucide-react": "^1.61.0",
     "next": "16.1.1",
