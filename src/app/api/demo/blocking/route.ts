@@ -14,6 +14,11 @@ export async function POST() {
     const { text } = await generateText({
       model: groq("openai/gpt-oss-120b"),
       prompt: "Write a vegetarian lasagna recipe for 4 people.",
+      experimental_telemetry: {
+        isEnabled: true,
+        recordInputs: true,
+        recordOutputs: true,
+      },
     });
 
     return NextResponse.json({ text });

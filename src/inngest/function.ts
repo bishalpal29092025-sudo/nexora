@@ -36,18 +36,18 @@ export const demoGenerate = inngest.createFunction(
 
             return `Source: ${url}\n${markdown.slice(
               0,
-              MAX_CONTENT_LENGTH_PER_URL
+              MAX_CONTENT_LENGTH_PER_URL,
             )}`;
           } catch (error) {
             console.error(`Failed to scrape ${url}:`, error);
             return null;
           }
-        })
+        }),
       );
 
-      return results.filter((result): result is string => Boolean(result)).join(
-        "\n\n---\n\n"
-      );
+      return results
+        .filter((result): result is string => Boolean(result))
+        .join("\n\n---\n\n");
     });
 
     const finalPrompt = scrapedContent
@@ -64,11 +64,31 @@ ${prompt}`
       const { text } = await generateText({
         model: groq("openai/gpt-oss-120b"),
         prompt: finalPrompt,
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       });
 
       return text;
     });
 
     return { text, urls };
-  }
+  },
+);
+
+export const demoError = inngest.createFunction(
+  {
+    id: "demo-error",
+  },
+  {
+    event: "demo/error",
+  },
+
+  async ({ step }) => {
+    await step.run("fail", async () => {
+      throw new Error("Inngest error: Background job failed!");
+    });
+  },
 );
