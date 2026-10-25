@@ -39,7 +39,7 @@ export const demoGenerate = inngest.createFunction(
               MAX_CONTENT_LENGTH_PER_URL
             )}`;
           } catch (error) {
-            console.error(`Failed to scrape ${url}:`, error);
+            console.error(`Failed to scrape URL: `, error);
             return null;
           }
         })
