@@ -13,6 +13,7 @@
     "@ai-sdk/groq": "^4.0.70",
     "@clerk/nextjs": "^6.36.5",
     "@clerk/themes": "^2.4.46",
+    "@mendable/firecrawl-js": "^4.51.0",
     "ai": "^7.0.153",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
